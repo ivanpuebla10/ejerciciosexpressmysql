@@ -266,8 +266,14 @@ app.post('/adduser',(req,res)=>{
       res.send(result);
     })
   })
-
-  
+//AGREGAR ON DELETE CASCADE DESPUES DE REFERENCES EN ORDERS(DONDE ESTA LA FOREIGN KEY)
+  app.delete('/deleteuser/:id',(req,res)=>{
+    let sql = `DELETE FROM users WHERE id = ${req.params.id}`;
+    db.query(sql, (err,result)=> {
+      if(err) throw err;
+      res.send('User deleted')
+    })
+  })
 
 
 
