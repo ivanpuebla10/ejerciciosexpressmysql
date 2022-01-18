@@ -124,7 +124,8 @@ app.get('/getcats',(req,res)=> {
     })
   })
 
-app.get('/prodsandcats',(req,res)=> {
+app.get('/s
+',(req,res)=> {
     let sql = 'SELECT products.prod_name, categories.cat_name FROM productoscategorias INNER JOIN products ON products.id = category_id INNER JOIN categories ON categories.id = product_id';
     db.query(sql,(err,result)=> {
       if(err) throw err;
