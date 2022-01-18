@@ -190,7 +190,7 @@ app.get('/createtableorders',(req,res)=>{
           db.query(sql,(err,result)=> {
             if(err) throw err;
             console.log(result);
-            res.send('Users table created...')
+            res.send('Orders table created...')
           })
         })
 
@@ -224,8 +224,50 @@ app.post('/adduser',(req,res)=>{
     })
   })
 
+  //Ej3
+  app.put('/updateuser/:id',(req,res)=>{
+    let newUserName = req.body.user_name;
+    let sql = `UPDATE users SET user_name = '${newUserName}' WHERE id = ${req.params.id}`;
+    db.query(sql, (err,result)=> {
+      if(err) throw err;
+      res.send('User updated...')
+    })
+  })
 
+  //Ej4
+  app.get('/getusers',(req,res)=> {
+    let sql = 'SELECT * FROM users';
+    db.query(sql,(err,result)=> {
+      if(err) throw err;
+      res.send(result)
+    })
+  })
 
+  app.get('/getorders',(req,res)=> {
+    let sql = 'SELECT * FROM orders';
+    db.query(sql,(err,result)=> {
+      if(err) throw err;
+      res.send(result)
+    })
+  })
+
+  app.get('/getusersandorders',(req,res)=> {
+    let sql = 'SELECT users.user_name, orders.order_number FROM users INNER JOIN orders ON users.id = user_id';
+    db.query(sql,(err,result)=> {
+      if(err) throw err;
+      res.send(result)
+    })
+  })
+
+  app.get('/getuser/:id',(req,res)=> {
+    let sql = `SELECT * FROM users WHERE id = ${req.params.id}`;
+    db.query(sql,(err,result)=> {
+      if(err) throw err;
+      res.send(result);
+    })
+  })
+
+  
 
 
 
