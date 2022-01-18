@@ -174,7 +174,56 @@ app.delete('/deleteproduct/:id',(req,res)=>{
     })
   })
 
-  
+//Ejercicios extra
+//Ej1
+app.get('/createtableusers',(req,res)=>{
+    let sql = 'CREATE TABLE users(id int AUTO_INCREMENT, user_name VARCHAR(15), user_lastname VARCHAR(15), PRIMARY KEY(id))'
+      db.query(sql,(err,result)=> {
+        if(err) throw err;
+        console.log(result);
+        res.send('Users table created...')
+      })
+    })
+
+app.get('/createtableorders',(req,res)=>{
+        let sql = 'CREATE TABLE orders(id INT AUTO_INCREMENT,user_id INT, order_number INT,PRIMARY KEY(id),FOREIGN KEY(user_id) REFERENCES expressmysql.users(id))'
+          db.query(sql,(err,result)=> {
+            if(err) throw err;
+            console.log(result);
+            res.send('Users table created...')
+          })
+        })
+
+app.get('/productsorders',(req,res)=>{
+            let sql = 'CREATE TABLE productsorders(id INT AUTO_INCREMENT,product_id INT,order_id INT,PRIMARY KEY(id),FOREIGN KEY(product_id) REFERENCES expressmysql.products(id),FOREIGN KEY(order_id) REFERENCES expressmysql.orders(id))'
+              db.query(sql,(err,result)=> {
+                if(err) throw err;
+                console.log(result);
+                res.send('Relation table created...')
+              })
+            })
+
+//EJ2
+app.post('/adduser',(req,res)=>{
+    let post = {user_name: req.body.user_name, user_lastname: req.body.user_lastname};
+    let sql = 'INSERT INTO users SET ?';
+    db.query(sql,post,(err,result)=> {
+      if(err) throw err;
+      console.log(result);
+      res.send('User added...')
+    })
+  })
+
+  app.post('/addorder',(req,res)=>{
+    let post = {user_id: req.body.user_id, order_number: req.body.order_number};
+    let sql = 'INSERT INTO orders SET ?';
+    db.query(sql,post,(err,result)=> {
+      if(err) throw err;
+      console.log(result);
+      res.send('Order added...')
+    })
+  })
+
 
 
 
