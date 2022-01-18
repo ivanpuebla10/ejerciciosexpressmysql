@@ -124,14 +124,51 @@ app.get('/getcats',(req,res)=> {
     })
   })
 
-app.get('/s
-',(req,res)=> {
+app.get('/prodsandcats',(req,res)=> {
     let sql = 'SELECT products.prod_name, categories.cat_name FROM productoscategorias INNER JOIN products ON products.id = category_id INNER JOIN categories ON categories.id = product_id';
     db.query(sql,(err,result)=> {
       if(err) throw err;
       res.send(result);
     })
   })
+
+app.get('/prodid/:id',(req,res)=> {
+    let sql = `SELECT * FROM products WHERE id = ${req.params.id}`;
+    db.query(sql,(err,result)=> {
+      if(err) throw err;
+      res.send(result);
+    })
+  })
+
+app.get('/productsdesc',(req,res)=> {
+    let sql = `SELECT * FROM products ORDER BY id DESC`;
+    db.query(sql,(err,result)=> {
+      if(err) throw err;
+      res.send(result);
+    })
+  })
+
+app.get('/catid/:id',(req,res)=> {
+    let sql = `SELECT * FROM categories WHERE id = ${req.params.id}`;
+    db.query(sql,(err,result)=> {
+      if(err) throw err;
+      res.send(result);
+    })
+  })
+
+app.get('/getproduct/:caca',(req,res)=> {
+    let sql = `SELECT * FROM products WHERE prod_name = "${req.params.caca}"`;
+    db.query(sql,(err,result)=> {
+      if(err) throw err;
+      res.send(result);
+    })
+  })
+
+//Ejercicio 5
+
+
+
+
 
 
 
